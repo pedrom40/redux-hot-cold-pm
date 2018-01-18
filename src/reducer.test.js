@@ -1,6 +1,7 @@
 import reducer from './reducer';
 import * as actions from './actions';
 import {generateAuralUpdate} from "./actions";
+import {makeGuess} from "./actions";
 
 describe('reducer', () => {
 
@@ -37,7 +38,17 @@ describe('reducer', () => {
 
   });
 
-  it ('Should reject this guess', () => {
+  it ('Should reject this answer', () => {
+    let state = {
+      guesses: [],
+      feedback: '',
+    };
+    const guess = 'This is not a number';
+    state = reducer(state, actions.makeGuess(guess));
+    expect(state.feedback).toEqual("Please enter a valid number.");
+  });
+
+  it ('Should say "You\'re Ice Cold...', () => {
     let state = {
       guesses: [10, 20, 30],
       correctAnswer: 100,
